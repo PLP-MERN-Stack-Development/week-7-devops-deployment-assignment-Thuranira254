@@ -75,4 +75,29 @@ Your work will be automatically submitted when you push to your GitHub Classroom
 - [Render Documentation](https://render.com/docs)
 - [Railway Documentation](https://docs.railway.app/)
 - [Vercel Documentation](https://vercel.com/docs)
-- [Netlify Documentation](https://docs.netlify.com/) 
+- [Netlify Documentation](https://docs.netlify.com/)
+
+## 🚀 Deployment
+
+- **Frontend:** https://your-frontend-url.vercel.app
+- **Backend API:** https://your-backend-url.onrender.com/api
+
+## 🛠️ CI/CD Pipeline
+
+![CI/CD Screenshot](./screenshots/cicd.png)
+
+## 📈 Monitoring
+
+- **Health Check:** `/api/health` endpoint returns `{ status: "ok" }`
+- **Uptime Monitoring:** Configured with UptimeRobot
+- **Error Tracking:** Sentry integrated in backend
+- **Performance:** Morgan for API logs, Vercel Analytics for frontend
+
+## 📝 Deployment Instructions
+
+1. Clone the repo
+2. Set environment variables (see `.env.example`)
+3. Run `npm install` in both `client` and `server`
+4. Start backend: `npm start` in `server`
+5. Start frontend: `npm start` in `client`
+6. For deployment, connect repo to Vercel (frontend) and Render/Railway (backend)

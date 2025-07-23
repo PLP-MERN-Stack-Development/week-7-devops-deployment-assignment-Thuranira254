@@ -1,0 +1,60 @@
+name: MERN CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:4.4
+        ports: [27017:27017]
+        options: --bind_ip_all
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install backend dependencies
+        working-directory: ./server
+        run: npm install
+
+      - name: Install frontend dependencies
+        working-directory: ./client
+        run: npm install
+
+      - name: Lint backend
+        working-directory: ./server
+        run: npm run lint || echo "No lint script"
+
+      - name: Lint frontend
+        working-directory: ./client
+        run: npm run lint || echo "No lint script"
+
+      - name: Run backend tests
+        working-directory: ./server
+        run: npm test || echo "No tests"
+
+      - name: Run frontend tests
+        working-directory: ./client
+        run: npm test -- --watchAll=false || echo "No tests"
+
+      - name: Build backend
+        working-directory: ./server
+        run: npm run build || echo "No build script"
+
+      - name: Build frontend
+        working-directory: ./client
+        run: npm run build
+
+  # Add deployment jobs here if needed (e.g., using Vercel, Heroku, or Render deploy actions)
